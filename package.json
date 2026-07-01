@@ -14,12 +14,18 @@
     "zod": "^3.24.0"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0",
+    "@types/node": "^22.20.0",
     "typescript": "^5.7.0"
   },
   "engines": {
     "node": ">=18"
   },
-  "keywords": ["mcp", "posthog", "analytics", "ai", "claude"],
+  "keywords": [
+    "mcp",
+    "posthog",
+    "analytics",
+    "ai",
+    "claude"
+  ],
   "license": "MIT"
 }
