@@ -169,23 +169,26 @@ server.registerTool(
     },
   },
   async ({ events, date_from, date_to, interval, breakdown }) => {
-    const eventSeries = events.map((name) => ({ id: name, name, type: "events", order: 0 }));
+    const series = events.map((name) => ({
+      kind: "EventsNode",
+      event: name,
+      name,
+      math: "total",
+    }));
 
-    const query: Record<string, unknown> = {
-      insight: "TRENDS",
-      events: eventSeries,
-      date_from,
+    const trendsQuery: Record<string, unknown> = {
+      kind: "TrendsQuery",
+      series,
+      dateRange: { date_from, date_to: date_to ?? null },
       interval,
     };
-    if (date_to) query.date_to = date_to;
     if (breakdown) {
-      query.breakdown = breakdown;
-      query.breakdown_type = "event";
+      trendsQuery.breakdownFilter = { breakdown, breakdown_type: "event" };
     }
 
-    const data = await posthogFetch(`/insights/trend/`, {
+    const data = await posthogFetch(`/query/`, {
       method: "POST",
-      body: JSON.stringify(query),
+      body: JSON.stringify({ query: trendsQuery }),
     });
 
     return {
