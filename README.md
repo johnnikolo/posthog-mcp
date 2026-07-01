@@ -28,12 +28,13 @@ Exposes five tools that cover the most common PostHog workflows:
 git clone https://github.com/johnnikolo/posthog-mcp.git
 cd posthog-mcp
 npm install
+cp .env.example .env   # then fill in your API key and project ID
 npm run build
 ```
 
 ## Configuration
 
-The server is configured via environment variables:
+The server is configured via environment variables. When run locally, it automatically loads a `.env` file in the project root (via `dotenv`); when configured through an MCP client, use the client's `env` block instead (see below).
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
